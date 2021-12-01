@@ -98,6 +98,7 @@ module.exports = {
         enforceForRenamedProperties: false
       }
     ],
+    'no-unused-expressions': ['off', { allowShortCircuit: true }],
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-shadow': 'error',
     '@typescript-eslint/no-var-requires': 'off'
