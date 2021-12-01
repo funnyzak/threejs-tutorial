@@ -1,0 +1,95 @@
+{
+  "name": "vue-quick-start",
+  "description": "vue-quick-start",
+  "version": "1.0.7",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/funnyzak/vue-quick-start.git"
+  },
+  "keywords": [
+    "vue",
+    "typescript",
+    "webpack"
+  ],
+  "author": "funnyzak <silenceace@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/funnyzak/vue-quick-start/issues"
+  },
+  "homepage": "https://github.com/funnyzak/vue-quick-start#readme",
+  "scripts": {
+    "serve": "cross-env node ./config/build.js --mode=serve",
+    "build": "cross-env node ./config/build.js --mode=build",
+    "serve:module": "cross-env node ./config/build.js --mode=serve module",
+    "build:module": "cross-env node ./config/build.js --mode=build module",
+    "test:unit": "vue-cli-service test:unit",
+    "eslint": "eslint --fix --cache .",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.23.0",
+    "core-js": "^3.6.5",
+    "minimist": "^1.2.5",
+    "vue": "^3.0.0",
+    "vue-class-component": "^8.0.0-0",
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.19",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/eslint-config-airbnb": "^5.0.2",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "@vue/test-utils": "^2.0.0-0",
+    "cross-env": "^7.0.3",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-vue": "^7.20.0",
+    "git-revision-webpack-plugin": "^3.0.6",
+    "lint-staged": "^9.5.0",
+    "prettier": "2.4.1",
+    "runjs": "^4.4.2",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "typescript": "~4.1.5",
+    "vue-jest": "^5.0.0-0",
+    "webpack-bundle-analyzer": "^4.5.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix --cache",
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.{md,html,json,css,less,scss,sass}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 2 chrome version",
+      "last 2 firefox version",
+      "last 2 safari version"
+    ]
+  }
+}

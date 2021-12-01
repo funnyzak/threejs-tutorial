@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags: # 当我们提交代码为tag 是以'v'开头的时候才会触发自动部署到服务端 如 git push tag v0.1.0
+      - 'v*'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.3.0'
+      - name: Restore Npm Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install && Build
+        working-directory: ./
+        run: |
+          npm install
+          npm run build
+      - name: Deploy GitHubPage
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist
+      - name: Archive Dist
+        uses: papeloto/action-zip@v1
+        with:
+          files: dist/
+          recursive: false
+          dest: ${{ env.DIST_ARCHIVE_NAME }}.zip
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ${{ env.DIST_ARCHIVE_NAME }}.zip
