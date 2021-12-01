@@ -1,11 +1,11 @@
 {
-  "name": "threejs-model-split",
-  "description": "threejs-model-split",
+  "name": "threejs-model-tutorial",
+  "description": "threejs-model-tutorial",
   "version": "0.1.0",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/funnyzak/threejs-model-split.git"
+    "url": "git+https://github.com/funnyzak/threejs-model-tutorial.git"
   },
   "keywords": [
     "vue",
@@ -15,9 +15,9 @@
   "author": "funnyzak <silenceace@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/funnyzak/threejs-model-split/issues"
+    "url": "https://github.com/funnyzak/threejs-model-tutorial/issues"
   },
-  "homepage": "https://github.com/funnyzak/threejs-model-split#readme",
+  "homepage": "https://github.com/funnyzak/threejs-model-tutorial#readme",
   "scripts": {
     "serve": "cross-env node ./config/build.js --mode=serve",
     "build": "cross-env node ./config/build.js --mode=build",
@@ -73,7 +73,6 @@
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
       "prettier --write",
-      "eslint --fix --cache",
       "vue-cli-service lint",
       "git add"
     ],
