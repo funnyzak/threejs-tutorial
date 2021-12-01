@@ -1,9 +1,9 @@
-# ThreeJS-Model-Split
+# ThreeJS-Model-Tutorial
 
 [![action][ci-image]][ci-url]
 [![license][license-image]][repository-url]
 
-基于 ThreeJS 实现多 Mesh 模型拆分展示
+基于 ThreeJS 做的 一些演示案例。
 
 [快速预览。][repository-url]
 
@@ -43,7 +43,7 @@ npm run test:unit
 
 MIT License © 2021 [funnyzak](https://github.com/funnyzak)
 
-[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/threejs-model-split/Release
-[ci-url]: https://github.com/funnyzak/threejs-model-split/actions
-[license-image]: https://img.shields.io/github/license/funnyzak/threejs-model-split.svg?style=flat-square
-[repository-url]: https://github.com/funnyzak/threejs-model-split
+[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/threejs-model-tutorial/Release
+[ci-url]: https://github.com/funnyzak/threejs-model-tutorial/actions
+[license-image]: https://img.shields.io/github/license/funnyzak/threejs-model-tutorial.svg?style=flat-square
+[repository-url]: https://github.com/funnyzak/threejs-model-tutorial

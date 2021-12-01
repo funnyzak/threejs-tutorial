@@ -73,6 +73,7 @@
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
       "prettier --write",
+      "eslint --fix --cache",
       "vue-cli-service lint",
       "git add"
     ],
