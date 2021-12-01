@@ -1,21 +1,11 @@
-# Vue Quick Start
+# ThreeJS-Model-Split
 
 [![action][ci-image]][ci-url]
 [![license][license-image]][repository-url]
 
-Vue **3.0.0** 脚手架项目，快速开始一个 Vue 项目开发。[预览](https://funnyzak.github.io/vue-quick-start/)。
+基于 ThreeJS 实现多 Mesh 模型拆分展示
 
-## 支持
-
-- multi-page 支持
-- babel 转换
-- typescript 支持
-- jest 支持
-- eslint 支持
-- vue router/vuex
-- sass 支持
-- png|svg|jpg|jpeg|gif 引入支持
-- git commit hooks, no 💩
+[快速预览。][repository-url]
 
 ## 使用
 
@@ -44,45 +34,16 @@ npm run eslint
 npm run test:unit
 ```
 
-## 目录
-
-    ├── babel.config.js                 // babel 配置
-    ├── config                          // 配置
-    │   └── build.js                    // 构建配置
-    ├── dist                            // 构建输出
-    ├── global.d.ts                     // typescript 全局声明
-    ├── public                          // 静态资源
-    ├── src                             // 前端源码
-    │   ├── api                         // http api定义
-    │   ├── assets                      // 资源文件
-    │   ├── components                  // 通用组件
-    │   ├── config                      // 应用配置
-    │   ├── types                       // ts 声明文件
-    │   ├── pages                       // 页面
-    │   ├── shims-vue.d.ts              // vue ts定义
-    │   ├── store                       // vuex
-    │   └── utils                       // 工具库
-    ├── tests                           // 测试
-    ├── tsconfig.json                   // typescript 配置
-    └── vue.config.js                   // vue配置
-
 ## 参考
 
-- [Configuration Reference](https://cli.vuejs.org/zh/config/).
-- [Babel Config](https://babel.docschina.org/docs/en/7.0.0/configuration/)
-- [EsLint](https://eslint.org/docs/user-guide/configuring/)
-- [eslintignore-file](https://eslint.org/docs/user-guide/configuring/ignoring-code#the-eslintignore-file)
-- [TSconfig](https://www.typescriptlang.org/tsconfig/)
-- [npmrc](https://docs.npmjs.com/cli/v7/configuring-npm/npmrc)
-- [gitignore](https://git-scm.com/docs/gitignore)
-- [webpack](https://webpack.docschina.org/guides/getting-started/)
-- [prettier](https://prettier.io/docs/en/index.html)
+- [threejs](https://github.com/mrdoob/three.js/tree/master)
+- [threejs-model-viewer](https://adjam93.github.io/threejs-model-viewer/#)
 
 ## License
 
 MIT License © 2021 [funnyzak](https://github.com/funnyzak)
 
-[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/vue-quick-start/Release
-[ci-url]: https://github.com/funnyzak/vue-quick-start/actions
-[license-image]: https://img.shields.io/github/license/funnyzak/vue-quick-start.svg?style=flat-square
-[repository-url]: https://github.com/funnyzak/vue-quick-start
+[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/threejs-model-split/Release
+[ci-url]: https://github.com/funnyzak/threejs-model-split/actions
+[license-image]: https://img.shields.io/github/license/funnyzak/threejs-model-split.svg?style=flat-square
+[repository-url]: https://github.com/funnyzak/threejs-model-split

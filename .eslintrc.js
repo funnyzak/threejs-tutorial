@@ -99,6 +99,7 @@ module.exports = {
       }
     ],
     '@typescript-eslint/no-unused-vars': 'off',
-    '@typescript-eslint/no-shadow': 'error'
+    '@typescript-eslint/no-shadow': 'error',
+    '@typescript-eslint/no-var-requires': 'off'
   }
 };

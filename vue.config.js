@@ -136,7 +136,7 @@ module.exports = {
     if (process.env.NODE_ENV === 'production') {
       // 为生产环境修改配置...
     } else {
-      config.plugins.push(new BundleAnalyzerPlugin());
+      // config.plugins.push(new BundleAnalyzerPlugin());
       config.plugins.push(gitRevisionPlugin);
     }
   },
