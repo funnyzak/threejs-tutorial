@@ -4,14 +4,15 @@ module.exports = {
     node: true
   },
   extends: ['@vue/airbnb', '@vue/typescript/recommended'],
-  parserOptions: {
-    ecmaVersion: 2020
-  },
   plugins: ['@typescript-eslint'],
-  parser: '@typescript-eslint/parser',
-  rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+  globals: {
+    window: true
+  },
+  parser: 'vue-eslint-parser',
+  parserOptions: {
+    ecmaVersion: 2020,
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module'
   },
   overrides: [
     {
@@ -101,6 +102,7 @@ module.exports = {
     'no-unused-expressions': ['off', { allowShortCircuit: true }],
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-shadow': 'error',
-    '@typescript-eslint/no-var-requires': 'off'
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   }
 };

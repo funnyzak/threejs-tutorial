@@ -1,7 +1,27 @@
 <template>
   <div class="home">
+    {{ page.title }}
     <ul>
-      <li><router-link to="/">Home</router-link></li>
+      <li v-for="route in $router.getRoutes()" :key="route.name">
+        <router-link :to="{ name: route.name }">{{ route.name }}</router-link>
+      </li>
     </ul>
   </div>
-</template>;
+</template>
+
+<script>
+import { reactive } from 'vue';
+
+export default {
+  setup() {
+    const page = reactive({ title: 'ThreeJS Toturial' });
+    return {
+      page
+    };
+  },
+  data() {
+    return {};
+  },
+  computed: {}
+};
+</script>

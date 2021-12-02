@@ -5,7 +5,7 @@ interface IState {
   status: string;
 }
 
-const module: Module<IState, {}> = {
+const module: Module<IState, unknown> = {
   namespaced: true,
   state: {
     status: process.env.NODE_ENV,
