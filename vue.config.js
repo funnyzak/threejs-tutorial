@@ -126,6 +126,7 @@ module.exports = {
       }
     }
   },
+  pluginOptions: {},
   // webpack 配置
   configureWebpack: (config) => {
     // config.resolve.alias['@'] = 'src'
