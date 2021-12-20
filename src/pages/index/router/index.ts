@@ -17,12 +17,12 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/tutorial/hello',
     children: [
       {
-        path: '/hello',
+        path: 'hello',
         name: 'TutorialHello',
         component: TutorialHello
       },
       {
-        path: '/split',
+        path: 'split',
         name: 'TutorialSplit',
         component: TutoialSplit
       }
