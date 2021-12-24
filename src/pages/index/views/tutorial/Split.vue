@@ -87,7 +87,17 @@ export default {
       );
       this.camera = camera;
 
+      this.setLight();
+
       this.renderer.render(scene, this.camera);
+    },
+    setLight() {
+      const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+      scene.add(ambientLight);
+
+      const pointLight = new THREE.PointLight(0xffffff, 0.8);
+      this.camera.add(pointLight);
+      scene.add(this.camera);
     },
     // 根据模型尺寸为相机设置合适的位置
     frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera) {
@@ -116,6 +126,8 @@ export default {
       // .setPath(_modelInfo.res.path)
       mtlLoader.load(_modelInfo.res.mtl, (materials) => {
         materials.preload();
+
+        console.log('model materials:', materials);
 
         new OBJLoader(modelManager)
           .setMaterials(materials)
@@ -240,8 +252,6 @@ export default {
 
       // 设置相机
       this.setCamera();
-
-      // 初始化光源
 
       // 初始化控制器
     },
