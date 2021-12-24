@@ -25,6 +25,7 @@ export default {
       renderer: null,
       camera: null,
       activeModel: null,
+      activeModelMaterials: null,
       actvieModelSize: {
         boxSize: null,
         boxCenter: null,
@@ -38,6 +39,8 @@ export default {
     // window.onresize = this.onWindowResize;
 
     this.container = this.$refs.container;
+
+    console.log(this.container);
 
     this.rendererCanvas();
     this.loadModel(modelInfo);
@@ -63,6 +66,10 @@ export default {
         // 设置为可缓存
         preserveDrawingBuffer: true
       });
+
+      renderer.setSize(this.container.offsetWidth, this.container.offsetHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+
       this.canvas = canvas;
       this.renderer = renderer;
 
@@ -80,7 +87,7 @@ export default {
       camera.position.set(0, 10, 20);
 
       this.frameArea(
-        this.actvieModelSize.boxSizeLength * 1.2,
+        this.actvieModelSize.boxSizeLength * 1,
         this.actvieModelSize.boxSizeLength,
         this.actvieModelSize.boxCenter,
         camera
@@ -128,6 +135,8 @@ export default {
         materials.preload();
 
         console.log('model materials:', materials);
+
+        this.activeModelMaterials = materials;
 
         new OBJLoader(modelManager)
           .setMaterials(materials)
@@ -198,6 +207,7 @@ export default {
           item.castShadow = true;
           item.receiveShadow = true;
           const materials = item.material;
+          console.log('mesh:', item, 'materials:', materials);
           // 判断材质 是否包含漫反射颜色，如果有的话将其设置为白，否则会覆盖之后的纹理贴图
           if (Array.isArray(materials)) {
             for (let i = 0; i < materials.length; i++) {
