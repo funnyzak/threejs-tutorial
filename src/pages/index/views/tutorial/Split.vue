@@ -1,11 +1,22 @@
 <template>
-  <canvas id="container" ref="container" style="width: 100vw; height: 100vh" />
+  <canvas
+    id="container"
+    ref="container"
+    style="width: 100vw; height: 100vh; background-color: #222" />
 </template>
 <script>
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+
+// const modelInfo = {
+//   name: '文物',
+//   res: {
+//     obj: '/tmp/2107_0072_W000816-1_00_Low_2/2107_0072_W000816-1_00_Low.obj',
+//     mtl: '/tmp/2107_0072_W000816-1_00_Low_2/2107_0072_W000816-1_00_Low.mtl'
+//   }
+// };
 
 const modelInfo = {
   name: '二战军舰',
@@ -24,6 +35,7 @@ export default {
       canvas: null,
       renderer: null,
       camera: null,
+      controls: null,
       activeModel: null,
       activeModelMaterials: null,
       actvieModelSize: {
@@ -36,7 +48,7 @@ export default {
   computed: {},
   mounted() {
     // this.rendererCanvas();
-    // window.onresize = this.onWindowResize;
+    window.onresize = this.onWindowResize;
 
     this.container = this.$refs.container;
 
@@ -50,9 +62,9 @@ export default {
   },
   methods: {
     onWindowResize() {
-      // this.camera.aspect = window.innerWidth / window.innerHeight; // 重新设置宽高比
-      // this.camera.updateProjectionMatrix(); // 更新相机
-      // this.renderer.setSize(window.innerWidth, window.innerHeight); // 更新渲染页面大小
+      this.camera.aspect = this.container.offsetWidt / this.container.offsetHeight; // 重新设置宽高比
+      this.camera.updateProjectionMatrix(); // 更新相机
+      this.renderer.setSize(this.container.offsetWidth, this.container.offsetHeight);
     },
     // 初始化画布
     rendererCanvas() {
@@ -87,7 +99,7 @@ export default {
       camera.position.set(0, 10, 20);
 
       this.frameArea(
-        this.actvieModelSize.boxSizeLength * 1,
+        this.actvieModelSize.boxSizeLength * 1.2,
         this.actvieModelSize.boxSizeLength,
         this.actvieModelSize.boxCenter,
         camera
@@ -99,12 +111,26 @@ export default {
       this.renderer.render(scene, this.camera);
     },
     setLight() {
-      const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
       scene.add(ambientLight);
 
       const pointLight = new THREE.PointLight(0xffffff, 0.8);
       this.camera.add(pointLight);
+
+      const controls = new OrbitControls(this.camera, this.renderer.domElement);
+      controls.update();
+      this.controls = controls;
+
+      const animate = () => {
+        window.requestAnimationFrame(animate);
+        // required if controls.enableDamping or controls.autoRotate are set to true
+        this.controls.update();
+        this.renderer.render(scene, this.camera);
+      };
+
       scene.add(this.camera);
+
+      animate();
     },
     // 根据模型尺寸为相机设置合适的位置
     frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera) {
@@ -195,41 +221,41 @@ export default {
     },
     // 加载成功模型
     loadModelSuccess(modelNode) {
-      // object.position.y = -95;
-      // scene.add(object);
       console.log('model node', modelNode);
 
       // 模型变换
 
-      modelNode.traverse((item) => {
-        if (item instanceof THREE.Mesh) {
-          // 设置所有的 Mesh 实例属性 接收阴影等等
-          item.castShadow = true;
-          item.receiveShadow = true;
-          const materials = item.material;
-          console.log('mesh:', item, 'materials:', materials);
-          // 判断材质 是否包含漫反射颜色，如果有的话将其设置为白，否则会覆盖之后的纹理贴图
-          if (Array.isArray(materials)) {
-            for (let i = 0; i < materials.length; i++) {
-              materials[i].color.set(0xffffff);
-            }
-          } else {
-            materials.color.set(0xffffff);
-          }
-          // 定义起 移动为止
-          // const r = 0.1
-          // item.fromPosition = [
-          //   item.position.x,
-          //   item.position.y,
-          //   item.position.z
-          // ]
-          // item.toPosition = [
-          //   item.position.x + r,
-          //   item.position.y + r,
-          //   item.position.z + r
-          // ]
-        }
-      });
+      // modelNode.traverse((item) => {
+      //   if (item instanceof THREE.Mesh) {
+      //     // 设置所有的 Mesh 实例属性 接收阴影等等
+      //     item.castShadow = true;
+      //     item.receiveShadow = true;
+      //     const materials = item.material;
+      //     console.log('mesh:', item, 'materials:', materials);
+
+      //     // 判断材质 是否包含漫反射颜色，如果有的话将其设置为白，否则会覆盖之后的纹理贴图
+      //     // if (Array.isArray(materials)) {
+      //     //   for (let i = 0; i < materials.length; i++) {
+      //     //     materials[i].color.set(0xffffff);
+      //     //   }
+      //     // } else {
+      //     //   materials.color.set(0xffffff);
+      //     // }
+
+      //     // 定义起 移动为止
+      //     // const r = 0.1
+      //     // item.fromPosition = [
+      //     //   item.position.x,
+      //     //   item.position.y,
+      //     //   item.position.z
+      //     // ]
+      //     // item.toPosition = [
+      //     //   item.position.x + r,
+      //     //   item.position.y + r,
+      //     //   item.position.z + r
+      //     // ]
+      //   }
+      // });
       // 设置加载模型的名称
       modelNode.name = 'mainModel';
 

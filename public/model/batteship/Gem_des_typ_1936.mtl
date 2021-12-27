@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# ╢╢╫╗╣днд╪Ч:01.12.2021 10:40:41
+# О©╫О©╫О©╫О©╫О©╫О©╫О©╫д╪О©╫:01.12.2021 10:40:41
 
 newmtl Material__78
 	Ns 10.0000
@@ -14,6 +14,7 @@ newmtl Material__78
 	Ke 0.0000 0.0000 0.0000
 	map_Ka /Gem_des_typ_1936_col_2.png
 	map_Kd /Gem_des_typ_1936_col_2.png
+	map_d /Gem_des_typ_1936_col_2.png
 
 newmtl 03___Default
 	Ns 10.0000
