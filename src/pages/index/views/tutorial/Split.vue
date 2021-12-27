@@ -1,14 +1,22 @@
 <template>
-  <canvas
-    id="container"
-    ref="container"
-    style="width: 100vw; height: 100vh; background-color: #222" />
+  <div>
+    <div class="button-container">
+      <button @click="dismantling">拆解</button>
+      <button @click="recovery">还原</button>
+    </div>
+    <canvas
+      id="container"
+      ref="container"
+      style="width: 100vw; height: 100vh; background-color: #222" />
+  </div>
 </template>
 <script>
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+
+const TWEEN = require('@tweenjs/tween.js');
 
 // const modelInfo = {
 //   name: '文物',
@@ -61,6 +69,21 @@ export default {
     window.onresize = null;
   },
   methods: {
+    // 移动函数
+    move(obj, position) {
+      new TWEEN.Tween(obj.position)
+        .to(position, 1000)
+        .onUpdate((val) => {
+          obj.position.set(val.x || 0, val.y || 0, val.z || 0);
+        })
+        .start();
+    },
+    dismantling() {
+      console.log('dismantling');
+    },
+    recovery() {
+      console.log('recovery');
+    },
     onWindowResize() {
       this.camera.aspect = this.container.offsetWidt / this.container.offsetHeight; // 重新设置宽高比
       this.camera.updateProjectionMatrix(); // 更新相机
@@ -223,43 +246,57 @@ export default {
     loadModelSuccess(modelNode) {
       console.log('model node', modelNode);
 
+      scene.add(modelNode);
+
       // 模型变换
+      modelNode.traverse((item) => {
+        if (item instanceof THREE.Mesh) {
+          // 设置所有的 Mesh 实例属性 接收阴影等等
+          item.castShadow = true;
+          item.receiveShadow = true;
+          const materials = item.material;
+          console.log(
+            'mesh:',
+            item.name,
+            item,
+            'materials:',
+            materials,
+            'mesh position:',
+            item.position.x,
+            item.position.y,
+            item.position.z
+          );
 
-      // modelNode.traverse((item) => {
-      //   if (item instanceof THREE.Mesh) {
-      //     // 设置所有的 Mesh 实例属性 接收阴影等等
-      //     item.castShadow = true;
-      //     item.receiveShadow = true;
-      //     const materials = item.material;
-      //     console.log('mesh:', item, 'materials:', materials);
+          const tempVertex = new THREE.Vector3();
+          item.getWorldPosition(tempVertex);
+          console.log(tempVertex);
 
-      //     // 判断材质 是否包含漫反射颜色，如果有的话将其设置为白，否则会覆盖之后的纹理贴图
-      //     // if (Array.isArray(materials)) {
-      //     //   for (let i = 0; i < materials.length; i++) {
-      //     //     materials[i].color.set(0xffffff);
-      //     //   }
-      //     // } else {
-      //     //   materials.color.set(0xffffff);
-      //     // }
+          // 判断材质 是否包含漫反射颜色，如果有的话将其设置为白，否则会覆盖之后的纹理贴图
+          // if (Array.isArray(materials)) {
+          //   for (let i = 0; i < materials.length; i++) {
+          //     materials[i].color.set(0xffffff);
+          //   }
+          // } else {
+          //   materials.color.set(0xffffff);
+          // }
 
-      //     // 定义起 移动为止
-      //     // const r = 0.1
-      //     // item.fromPosition = [
-      //     //   item.position.x,
-      //     //   item.position.y,
-      //     //   item.position.z
-      //     // ]
-      //     // item.toPosition = [
-      //     //   item.position.x + r,
-      //     //   item.position.y + r,
-      //     //   item.position.z + r
-      //     // ]
-      //   }
-      // });
+          // 定义起 移动为止
+          // const r = 0.1
+          // item.fromPosition = [
+          //   item.position.x,
+          //   item.position.y,
+          //   item.position.z
+          // ]
+          // item.toPosition = [
+          //   item.position.x + r,
+          //   item.position.y + r,
+          //   item.position.z + r
+          // ]
+        }
+      });
       // 设置加载模型的名称
       modelNode.name = 'mainModel';
 
-      scene.add(modelNode);
       this.activeModel = modelNode;
 
       // 根据模型的尺寸设置相机位置
@@ -304,3 +341,22 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.button-container {
+  position: absolute;
+  margin: auto;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+.button-container > button {
+  margin: 10px;
+  font-size: 20px;
+  background-color: #409eff;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+</style>
