@@ -26,6 +26,7 @@ export default {
       this.camera.aspect = window.innerWidth / window.innerHeight; // 重新设置宽高比
       this.camera.updateProjectionMatrix(); // 更新相机
       this.renderer.setSize(window.innerWidth, window.innerHeight); // 更新渲染页面大小
+      this.renderer.setPixelRatio(window.devicePixelRatio);
     },
     // 渲染
     rendererCanvas() {
@@ -39,6 +40,9 @@ export default {
         // 设置为可缓存
         preserveDrawingBuffer: true
       });
+      renderer.setSize(window.innerWidth, window.innerHeight); // 更新渲染页面大小
+      renderer.setPixelRatio(window.devicePixelRatio);
+
       this.canvas = canvas;
       this.renderer = renderer;
 
