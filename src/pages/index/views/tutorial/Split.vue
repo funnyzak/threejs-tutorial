@@ -55,12 +55,9 @@ export default {
   },
   computed: {},
   mounted() {
-    // this.rendererCanvas();
     window.onresize = this.onWindowResize;
 
     this.container = this.$refs.container;
-
-    console.log(this.container);
 
     this.rendererCanvas();
     this.loadModel(modelInfo);
@@ -83,22 +80,18 @@ export default {
     dismantling() {
       this.activeModel.traverse((e) => {
         if (e.isMesh) {
-          const { toPosition } = e;
-          const { fromPosition } = e;
-          this.objMove(e, fromPosition, toPosition);
-          console.log('dismantling');
+          this.objMove(e, e.fromPosition, e.toPosition);
         }
       });
+      console.log('dismantling done.');
     },
     recovery() {
       this.activeModel.traverse((e) => {
         if (e.isMesh) {
-          const { toPosition } = e;
-          const { fromPosition } = e;
-          this.objMove(e, toPosition, fromPosition);
-          console.log('recovery');
+          this.objMove(e, e.toPosition, e.fromPosition);
         }
       });
+      console.log('recovery done.');
     },
     onWindowResize() {
       this.camera.aspect = this.container.offsetWidt / this.container.offsetHeight; // 重新设置宽高比
