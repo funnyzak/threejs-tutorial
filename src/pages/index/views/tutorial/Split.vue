@@ -69,20 +69,36 @@ export default {
     window.onresize = null;
   },
   methods: {
-    // 移动函数
-    move(obj, position) {
-      new TWEEN.Tween(obj.position)
-        .to(position, 1000)
+    // 对象移动
+    objMove(obj, from, to) {
+      console.log('obj move', obj, from, to);
+      new TWEEN.Tween({ ...from })
+        .to({ ...to }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
         .onUpdate((val) => {
           obj.position.set(val.x || 0, val.y || 0, val.z || 0);
         })
         .start();
     },
     dismantling() {
-      console.log('dismantling');
+      this.activeModel.traverse((e) => {
+        if (e.isMesh) {
+          const { toPosition } = e;
+          const { fromPosition } = e;
+          this.objMove(e, fromPosition, toPosition);
+          console.log('dismantling');
+        }
+      });
     },
     recovery() {
-      console.log('recovery');
+      this.activeModel.traverse((e) => {
+        if (e.isMesh) {
+          const { toPosition } = e;
+          const { fromPosition } = e;
+          this.objMove(e, toPosition, fromPosition);
+          console.log('recovery');
+        }
+      });
     },
     onWindowResize() {
       this.camera.aspect = this.container.offsetWidt / this.container.offsetHeight; // 重新设置宽高比
@@ -131,6 +147,8 @@ export default {
 
       this.setLight();
 
+      this.setControls();
+
       this.renderer.render(scene, this.camera);
     },
     setLight() {
@@ -140,19 +158,21 @@ export default {
       const pointLight = new THREE.PointLight(0xffffff, 0.8);
       this.camera.add(pointLight);
 
+      scene.add(this.camera);
+    },
+    setControls() {
       const controls = new OrbitControls(this.camera, this.renderer.domElement);
       controls.update();
       this.controls = controls;
 
       const animate = () => {
+        TWEEN.update();
+
         window.requestAnimationFrame(animate);
         // required if controls.enableDamping or controls.autoRotate are set to true
         this.controls.update();
         this.renderer.render(scene, this.camera);
       };
-
-      scene.add(this.camera);
-
       animate();
     },
     // 根据模型尺寸为相机设置合适的位置
@@ -267,9 +287,9 @@ export default {
             item.position.z
           );
 
-          const tempVertex = new THREE.Vector3();
-          item.getWorldPosition(tempVertex);
-          console.log(tempVertex);
+          // const tempVertex = new THREE.Vector3();
+          // item.getWorldPosition(tempVertex);
+          // console.log(tempVertex);
 
           // 判断材质 是否包含漫反射颜色，如果有的话将其设置为白，否则会覆盖之后的纹理贴图
           // if (Array.isArray(materials)) {
@@ -281,17 +301,17 @@ export default {
           // }
 
           // 定义起 移动为止
-          // const r = 0.1
-          // item.fromPosition = [
-          //   item.position.x,
-          //   item.position.y,
-          //   item.position.z
-          // ]
-          // item.toPosition = [
-          //   item.position.x + r,
-          //   item.position.y + r,
-          //   item.position.z + r
-          // ]
+          const r = 500;
+          item.fromPosition = {
+            x: item.position.x,
+            y: item.position.y,
+            z: item.position.z
+          };
+          item.toPosition = {
+            x: item.position.x + r,
+            y: item.position.y + r,
+            z: item.position.z + r
+          };
         }
       });
       // 设置加载模型的名称
