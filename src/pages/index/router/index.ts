@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue';
 import TutorialIndex from '../views/tutorial/index.vue';
 import TutorialHello from '../views/tutorial/Hello.vue';
-import TutoialSplit from '../views/tutorial/Split.vue';
+import TutoialDismantling from '../views/tutorial/Dismantling.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -22,9 +22,9 @@ const routes: Array<RouteRecordRaw> = [
         component: TutorialHello
       },
       {
-        path: 'split',
-        name: 'TutorialSplit',
-        component: TutoialSplit
+        path: 'dismantling',
+        name: 'TutorialDismantling',
+        component: TutoialDismantling
       }
     ]
   }

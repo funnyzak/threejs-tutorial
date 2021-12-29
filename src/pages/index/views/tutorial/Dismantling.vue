@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="button-container">
-      <button @click="dismantling">拆解</button>
+      <button @click="dismantling">拆卸</button>
       <button @click="recovery">还原</button>
     </div>
     <canvas
@@ -68,7 +68,8 @@ export default {
   methods: {
     // 对象移动
     objMove(obj, from, to) {
-      console.log('obj move', obj, from, to);
+      // console.log('obj move', obj, from, to);
+
       new TWEEN.Tween({ ...from })
         .to({ ...to }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
@@ -259,7 +260,39 @@ export default {
     loadModelSuccess(modelNode) {
       console.log('model node', modelNode);
 
+      const modelNodeHelp = new THREE.BoxHelper(modelNode, 0xffff00);
+
+      scene.add(modelNodeHelp);
       scene.add(modelNode);
+
+      const moveSeed = 0.2;
+
+      // 根据模型的尺寸设置相机位置
+      const box = new THREE.Box3().setFromObject(modelNode);
+      const boxSize = box.getSize(new THREE.Vector3());
+      const boxSizeLength = boxSize.length();
+      const boxCenter = box.getCenter(new THREE.Vector3());
+
+      this.actvieModelSize.boxSize = boxSize;
+      this.actvieModelSize.boxCenter = boxCenter;
+      this.actvieModelSize.boxSizeLength = boxSizeLength;
+
+      // 设置加载模型的名称
+      modelNode.name = 'mainModel';
+
+      this.activeModel = modelNode;
+
+      console.log(
+        'Model Info:\n\n',
+        'box:',
+        box,
+        '\n\nboxSize:',
+        boxSize,
+        '\n\nboxSizeLength:',
+        boxSizeLength,
+        '\n\nboxCenter:',
+        boxCenter
+      );
 
       // 模型变换
       modelNode.traverse((item) => {
@@ -268,16 +301,20 @@ export default {
           item.castShadow = true;
           item.receiveShadow = true;
           const materials = item.material;
+
+          const meshBox = new THREE.Box3().setFromObject(item);
+          const meshCenter = meshBox.getCenter(new THREE.Vector3());
+
           console.log(
             'mesh:',
             item.name,
             item,
+            'mesh box',
+            meshBox,
+            'mesh center',
+            meshCenter,
             'materials:',
-            materials,
-            'mesh position:',
-            item.position.x,
-            item.position.y,
-            item.position.z
+            materials
           );
 
           // const tempVertex = new THREE.Vector3();
@@ -294,45 +331,29 @@ export default {
           // }
 
           // 定义起 移动为止
-          const r = 500;
           item.fromPosition = {
             x: item.position.x,
             y: item.position.y,
             z: item.position.z
           };
-          item.toPosition = {
-            x: item.position.x + r,
-            y: item.position.y + r,
-            z: item.position.z + r
-          };
+          // item.toPosition = {
+          //   x:
+          //     meshCenter.x > boxCenter.x
+          //       ? item.position.x + boxSize.x * moveSeed
+          //       : item.position.x - boxSize.x * moveSeed,
+          //   y:
+          //     meshCenter.y > boxCenter.y
+          //       ? item.position.y + boxSize.y * moveSeed
+          //       : item.position.y - boxSize.y * moveSeed,
+          //   z:
+          //     meshCenter.z > boxCenter.z
+          //       ? item.position.z + boxSize.z * moveSeed
+          //       : item.position.z - boxSize.z * moveSeed
+          // };
+          // item.toPosition = meshLength * 2;
+          item.toPosition = meshBox.max.setLength(300);
         }
       });
-      // 设置加载模型的名称
-      modelNode.name = 'mainModel';
-
-      this.activeModel = modelNode;
-
-      // 根据模型的尺寸设置相机位置
-      const box = new THREE.Box3().setFromObject(modelNode);
-      const boxSize = box.getSize(new THREE.Vector3());
-      const boxSizeLength = boxSize.length();
-      const boxCenter = box.getCenter(new THREE.Vector3());
-
-      this.actvieModelSize.boxSize = boxSize;
-      this.actvieModelSize.boxCenter = boxCenter;
-      this.actvieModelSize.boxSizeLength = boxSizeLength;
-
-      console.log(
-        'Model Info:\n\n',
-        'box:',
-        box,
-        '\n\nboxSize:',
-        boxSize,
-        '\n\nboxSizeLength:',
-        boxSizeLength,
-        '\n\nboxCenter:',
-        boxCenter
-      );
 
       // 加载模型背景
 
