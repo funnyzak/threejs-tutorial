@@ -27,12 +27,28 @@ const TWEEN = require('@tweenjs/tween.js');
 // };
 
 const modelInfo = {
-  name: '二战军舰',
+  name: '文物',
   res: {
-    obj: '/model/batteship/Gem_des_typ_1936.obj',
-    mtl: '/model/batteship/Gem_des_typ_1936.mtl'
+    obj: '/tmp/2101_0035_S5756_00_Low/2101_0035_S5756_00_Low.obj',
+    mtl: '/tmp/2101_0035_S5756_00_Low/2101_0035_S5756_00_Low.mtl'
   }
 };
+
+// const modelInfo = {
+//   name: '文物',
+//   res: {
+//     obj: '/tmp/122-CI：1538 邓碧珊款浅绛彩鱼乐图茶壶/102_DengBiShanKuanQianJiangCaiYuYueTuChaHu_CI1538_Low.obj',
+//     mtl: '/tmp/122-CI：1538 邓碧珊款浅绛彩鱼乐图茶壶/102_DengBiShanKuanQianJiangCaiYuYueTuChaHu_CI1538_Low.mtl'
+//   }
+// };
+
+// const modelInfo = {
+//   name: '二战军舰',
+//   res: {
+//     obj: '/model/batteship/Gem_des_typ_1936.obj',
+//     mtl: '/model/batteship/Gem_des_typ_1936.mtl'
+//   }
+// };
 
 let scene;
 
@@ -336,22 +352,23 @@ export default {
             y: item.position.y,
             z: item.position.z
           };
-          // item.toPosition = {
-          //   x:
-          //     meshCenter.x > boxCenter.x
-          //       ? item.position.x + boxSize.x * moveSeed
-          //       : item.position.x - boxSize.x * moveSeed,
-          //   y:
-          //     meshCenter.y > boxCenter.y
-          //       ? item.position.y + boxSize.y * moveSeed
-          //       : item.position.y - boxSize.y * moveSeed,
-          //   z:
-          //     meshCenter.z > boxCenter.z
-          //       ? item.position.z + boxSize.z * moveSeed
-          //       : item.position.z - boxSize.z * moveSeed
-          // };
+          item.toPosition = {
+            x:
+              meshCenter.x > boxCenter.x
+                ? item.position.x + boxSize.x * moveSeed
+                : item.position.x - boxSize.x * moveSeed,
+            y:
+              meshCenter.y > boxCenter.y
+                ? item.position.y + boxSize.y * moveSeed
+                : item.position.y - boxSize.y * moveSeed,
+            z:
+              meshCenter.z > boxCenter.z
+                ? item.position.z + boxSize.z * moveSeed
+                : item.position.z - boxSize.z * moveSeed
+          };
           // item.toPosition = meshLength * 2;
-          item.toPosition = meshBox.max.setLength(300);
+
+          // item.toPosition = meshBox.max.setLength(300);
         }
       });
 
