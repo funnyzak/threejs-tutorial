@@ -8,7 +8,7 @@
 
 基于 ThreeJS 做的 一些演示案例。
 
-[快速预览。][repository-url]
+[快速预览。][github-pages-url]
 
 ## 使用
 
