@@ -51,6 +51,6 @@ MIT License © 2021 [funnyzak](https://github.com/funnyzak)
 [license-image]: https://img.shields.io/github/license/funnyzak/threejs-model-tutorial.svg?style=flat-square
 [repository-url]: https://github.com/funnyzak/threejs-model-tutorial
 [github-pages-image]: https://img.shields.io/github/pages/funnyzak/threejs-model-tutorial.svg?style=flat-square
-[github-pages-url]: https://funnyzak.github.io/threejs-model-tutorial
+[github-pages-url]: https://funnyzak.github.io/threejs-model-tutorial/
 [commit-activity-image]: https://img.shields.io/github/commit-activity/m/funnyzak/threejs-model-tutorial?style=flat-square
 [last-commit-image]: https://img.shields.io/github/last-commit/funnyzak/threejs-model-tutorial?style=flat-square
