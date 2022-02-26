@@ -2,6 +2,9 @@
 
 [![action][ci-image]][ci-url]
 [![license][license-image]][repository-url]
+[![GitHub last commit][last-commit-image]][repository-url]
+[![GitHub commit activity][commit-activity-image]][repository-url]
+[![github pages][github-pages-image]][github-pages-url]
 
 基于 ThreeJS 做的 一些演示案例。
 
@@ -47,3 +50,7 @@ MIT License © 2021 [funnyzak](https://github.com/funnyzak)
 [ci-url]: https://github.com/funnyzak/threejs-model-tutorial/actions
 [license-image]: https://img.shields.io/github/license/funnyzak/threejs-model-tutorial.svg?style=flat-square
 [repository-url]: https://github.com/funnyzak/threejs-model-tutorial
+[github-pages-image]: https://img.shields.io/github/pages/funnyzak/threejs-model-tutorial.svg?style=flat-square
+[github-pages-url]: https://funnyzak.github.io/threejs-model-tutorial
+[commit-activity-image]: https://img.shields.io/github/commit-activity/m/funnyzak/threejs-model-tutorial?style=flat-square
+[last-commit-image]: https://img.shields.io/github/last-commit/funnyzak/threejs-model-tutorial?style=flat-square
