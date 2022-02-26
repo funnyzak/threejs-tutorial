@@ -4,7 +4,6 @@
 [![license][license-image]][repository-url]
 [![GitHub last commit][last-commit-image]][repository-url]
 [![GitHub commit activity][commit-activity-image]][repository-url]
-[![github pages][github-pages-image]][github-pages-url]
 
 基于 ThreeJS 做的 一些演示案例。
 
