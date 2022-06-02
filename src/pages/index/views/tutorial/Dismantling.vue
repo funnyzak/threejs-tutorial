@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="button-container">
-      <button @click="dismantling">拆卸</button>
-      <button @click="recovery">还原</button>
+      <button @click="meshToggle">{{ !meshExpand ? '分体扩散' : '复原模型' }}</button>
     </div>
     <canvas
       id="container"
@@ -11,6 +10,9 @@
   </div>
 </template>
 <script>
+/**
+ * Created by leon<silenceace@gmail.com> on 22/06/02.
+ */
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
@@ -19,10 +21,10 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 const TWEEN = require('@tweenjs/tween.js');
 
 const modelInfo = {
-  name: '二战军舰',
+  name: 'motorcycle',
   res: {
-    obj: 'model/batteship/Gem_des_typ_1936.obj',
-    mtl: 'model/batteship/Gem_des_typ_1936.mtl'
+    obj: 'model/motorcycle/motorcycle.obj',
+    mtl: 'model/motorcycle/motorcycle.mtl'
   }
 };
 
@@ -58,7 +60,6 @@ export default {
     window.onresize = null;
   },
   methods: {
-    // 对象移动
     objMove(obj, from, to) {
       console.log('obj move', obj, from, to);
 
@@ -149,10 +150,10 @@ export default {
       this.renderer.render(scene, this.camera);
     },
     setLight() {
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
       scene.add(ambientLight);
 
-      const pointLight = new THREE.PointLight(0xffffff, 0.8);
+      const pointLight = new THREE.PointLight(0xffffff, 0.4);
       this.camera.add(pointLight);
 
       scene.add(this.camera);
@@ -174,7 +175,7 @@ export default {
     },
     // 根据模型尺寸为相机设置合适的位置
     frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera) {
-      const halfSizeToFitOnScreen = sizeToFitOnScreen * 0.5;
+      const halfSizeToFitOnScreen = sizeToFitOnScreen * 0.6;
       const halfFovY = THREE.MathUtils.degToRad(camera.fov * 0.5);
       const distance = halfSizeToFitOnScreen / Math.tan(halfFovY);
       const direction = new THREE.Vector3()
@@ -189,14 +190,13 @@ export default {
 
       camera.updateProjectionMatrix();
 
-      camera.lookAt(boxCenter.x, boxCenter.y, boxCenter.z);
+      camera.lookAt(boxCenter);
     },
     loadModel(_modelInfo) {
       const mtlManager = this.loadMtlManager();
       const modelManager = this.loadModelManager();
 
       const mtlLoader = new MTLLoader(mtlManager);
-      // .setPath(_modelInfo.res.path)
       mtlLoader.load(_modelInfo.res.mtl, (materials) => {
         materials.preload();
 
@@ -206,7 +206,6 @@ export default {
 
         new OBJLoader(modelManager)
           .setMaterials(materials)
-          // .setPath(_modelInfo.res.path)
           .load(
             _modelInfo.res.obj,
             this.loadModelSuccess,
@@ -285,25 +284,12 @@ export default {
 
       this.activeModel = modelNode;
 
-      console.log(
-        'Model Info:\n\n',
-        'box:',
-        box,
-        '\n\nboxSize:',
-        boxSize,
-        '\n\nboxSizeLength:',
-        boxSizeLength,
-        '\n\nboxCenter:',
-        boxCenter
-      );
-
       // 模型变换
       modelNode.traverse((item) => {
         if (item instanceof THREE.Mesh) {
           // 设置所有的 Mesh 实例属性 接收阴影等等
           item.castShadow = true;
           item.receiveShadow = true;
-          const materials = item.material;
 
           const meshBox = new THREE.Box3().setFromObject(item);
           const meshCenter = meshBox.getCenter(new THREE.Vector3());
@@ -322,12 +308,8 @@ export default {
         }
       });
 
-      // 加载模型背景
-
       // 设置相机
       this.setCamera();
-
-      // 初始化控制器
     },
     // 加载模型进程
     loadModelProcess(xhr) {
