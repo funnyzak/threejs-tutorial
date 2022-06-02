@@ -3,6 +3,13 @@
     <div class="button-container">
       <button @click="meshToggle">{{ !meshExpand ? '分体扩散' : '复原模型' }}</button>
     </div>
+    <div class="footer">
+      Model by&nbsp;<a
+        href="https://sketchfab.com/3d-models/motorcycle-custom-bike-jawa-low-poly-13771fe558604aedae09b5157029e790"
+        target="_blank"
+        >kreems</a
+      >
+    </div>
     <canvas
       id="container"
       ref="container"
@@ -341,5 +348,16 @@ export default {
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: 50px;
+  background-color: #409eff;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
