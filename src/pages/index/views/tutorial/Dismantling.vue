@@ -18,30 +18,6 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 
 const TWEEN = require('@tweenjs/tween.js');
 
-// const modelInfo = {
-//   name: '文物',
-//   res: {
-//     obj: '/tmp/2107_0072_W000816-1_00_Low_2/2107_0072_W000816-1_00_Low.obj',
-//     mtl: '/tmp/2107_0072_W000816-1_00_Low_2/2107_0072_W000816-1_00_Low.mtl'
-//   }
-// };
-
-// const modelInfo = {
-//   name: '文物',
-//   res: {
-//     obj: '/tmp/2101_0035_S5756_00_Low/2101_0035_S5756_00_Low.obj',
-//     mtl: '/tmp/2101_0035_S5756_00_Low/2101_0035_S5756_00_Low.mtl'
-//   }
-// };
-
-// const modelInfo = {
-//   name: '文物',
-//   res: {
-//     obj: '/tmp/122-CI：1538 邓碧珊款浅绛彩鱼乐图茶壶/102_DengBiShanKuanQianJiangCaiYuYueTuChaHu_CI1538_Low.obj',
-//     mtl: '/tmp/122-CI：1538 邓碧珊款浅绛彩鱼乐图茶壶/102_DengBiShanKuanQianJiangCaiYuYueTuChaHu_CI1538_Low.mtl'
-//   }
-// };
-
 const modelInfo = {
   name: '二战军舰',
   res: {
