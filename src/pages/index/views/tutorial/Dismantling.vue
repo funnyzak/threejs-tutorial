@@ -26,13 +26,13 @@ const TWEEN = require('@tweenjs/tween.js');
 //   }
 // };
 
-const modelInfo = {
-  name: '文物',
-  res: {
-    obj: '/tmp/2101_0035_S5756_00_Low/2101_0035_S5756_00_Low.obj',
-    mtl: '/tmp/2101_0035_S5756_00_Low/2101_0035_S5756_00_Low.mtl'
-  }
-};
+// const modelInfo = {
+//   name: '文物',
+//   res: {
+//     obj: '/tmp/2101_0035_S5756_00_Low/2101_0035_S5756_00_Low.obj',
+//     mtl: '/tmp/2101_0035_S5756_00_Low/2101_0035_S5756_00_Low.mtl'
+//   }
+// };
 
 // const modelInfo = {
 //   name: '文物',
@@ -42,13 +42,13 @@ const modelInfo = {
 //   }
 // };
 
-// const modelInfo = {
-//   name: '二战军舰',
-//   res: {
-//     obj: '/model/batteship/Gem_des_typ_1936.obj',
-//     mtl: '/model/batteship/Gem_des_typ_1936.mtl'
-//   }
-// };
+const modelInfo = {
+  name: '二战军舰',
+  res: {
+    obj: 'model/batteship/Gem_des_typ_1936.obj',
+    mtl: 'model/batteship/Gem_des_typ_1936.mtl'
+  }
+};
 
 let scene;
 
@@ -84,16 +84,26 @@ export default {
   methods: {
     // 对象移动
     objMove(obj, from, to) {
-      // console.log('obj move', obj, from, to);
+      console.log('obj move', obj, from, to);
 
-      new TWEEN.Tween({ ...from })
-        .to({ ...to }, 500)
+      new TWEEN.Tween({ x: from.x, y: from.y, z: from.z })
+        .to({ x: to.x, y: to.y, z: to.z }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
         .onUpdate((val) => {
-          obj.position.set(val.x || 0, val.y || 0, val.z || 0);
+          obj.position.set(val.x, val.y, val.z);
         })
         .start();
     },
+    meshToggle() {
+      this.meshExpand = !this.meshExpand;
+
+      if (this.meshExpand) {
+        this.dismantling();
+      } else {
+        this.recovery();
+      }
+    },
+    // 分体恢复
     dismantling() {
       this.activeModel.traverse((e) => {
         if (e.isMesh) {
@@ -102,6 +112,7 @@ export default {
       });
       console.log('dismantling done.');
     },
+    // 分体展开
     recovery() {
       this.activeModel.traverse((e) => {
         if (e.isMesh) {
@@ -281,7 +292,7 @@ export default {
       scene.add(modelNodeHelp);
       scene.add(modelNode);
 
-      const moveSeed = 0.2;
+      const moveSeed = 1.2;
 
       // 根据模型的尺寸设置相机位置
       const box = new THREE.Box3().setFromObject(modelNode);
@@ -321,54 +332,17 @@ export default {
           const meshBox = new THREE.Box3().setFromObject(item);
           const meshCenter = meshBox.getCenter(new THREE.Vector3());
 
-          console.log(
-            'mesh:',
-            item.name,
-            item,
-            'mesh box',
-            meshBox,
-            'mesh center',
-            meshCenter,
-            'materials:',
-            materials
-          );
+          // 定义mesh初始位置
+          item.fromPosition = item.position.clone();
 
-          // const tempVertex = new THREE.Vector3();
-          // item.getWorldPosition(tempVertex);
-          // console.log(tempVertex);
-
-          // 判断材质 是否包含漫反射颜色，如果有的话将其设置为白，否则会覆盖之后的纹理贴图
-          // if (Array.isArray(materials)) {
-          //   for (let i = 0; i < materials.length; i++) {
-          //     materials[i].color.set(0xffffff);
-          //   }
-          // } else {
-          //   materials.color.set(0xffffff);
-          // }
-
-          // 定义起 移动为止
-          item.fromPosition = {
-            x: item.position.x,
-            y: item.position.y,
-            z: item.position.z
-          };
-          item.toPosition = {
-            x:
-              meshCenter.x > boxCenter.x
-                ? item.position.x + boxSize.x * moveSeed
-                : item.position.x - boxSize.x * moveSeed,
-            y:
-              meshCenter.y > boxCenter.y
-                ? item.position.y + boxSize.y * moveSeed
-                : item.position.y - boxSize.y * moveSeed,
-            z:
-              meshCenter.z > boxCenter.z
-                ? item.position.z + boxSize.z * moveSeed
-                : item.position.z - boxSize.z * moveSeed
-          };
-          // item.toPosition = meshLength * 2;
-
-          // item.toPosition = meshBox.max.setLength(300);
+          // 包围盒和MESH中心点线段
+          const centerLine3 = new THREE.Line3(boxCenter, meshCenter);
+          const centerLine3Delta = new THREE.Vector3();
+          // 求线段向量
+          centerLine3.delta(centerLine3Delta);
+          // item.toPosition = item.fromPosition.clone().add(centerLine3Delta);
+          // 目标位置向量=线段终点位置+线段向量乘积
+          item.toPosition = item.fromPosition.clone().addScaledVector(centerLine3Delta, moveSeed);
         }
       });
 
