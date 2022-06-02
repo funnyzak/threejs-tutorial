@@ -7,7 +7,7 @@
       Model by&nbsp;<a
         href="https://sketchfab.com/3d-models/motorcycle-custom-bike-jawa-low-poly-13771fe558604aedae09b5157029e790"
         target="_blank"
-        >kreems</a
+        >Kreems</a
       >
     </div>
     <canvas
@@ -332,6 +332,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+a {
+  color: #409eff;
+}
 .button-container {
   position: absolute;
   margin: auto;
@@ -352,12 +355,11 @@ export default {
 .footer {
   position: absolute;
   bottom: 0;
+  box-sizing: border-box;
+  padding: 0 20px 0 0;
   width: 100vw;
-  height: 50px;
-  background-color: #409eff;
+  height: 30px;
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: right;
 }
 </style>

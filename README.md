@@ -7,7 +7,12 @@
 
 基于 ThreeJS 做的 一些演示案例。
 
-[快速预览。][github-pages-url]
+[所有示例快速预览。][github-pages-url]
+
+## 预览
+
+- [模型拆分展示/自动爆炸效果](https://funnyzak.github.io/threejs-model-tutorial/#/tutorial/dismantling)
+  ![效果预览](https://raw.githubusercontent.com/funnyzak/threejs-model-tutorial/public/.assets/imgs/dismantling.gif)
 
 ## 使用
 
