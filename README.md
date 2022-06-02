@@ -12,7 +12,7 @@
 ## 预览
 
 - [模型拆分展示/自动爆炸效果](https://funnyzak.github.io/threejs-model-tutorial/#/tutorial/dismantling)
-  ![效果预览](https://raw.githubusercontent.com/funnyzak/threejs-model-tutorial/public/.assets/imgs/dismantling.gif)
+  ![效果预览](https://raw.githubusercontent.com/funnyzak/threejs-model-tutorial/master/public/.assets/imgs/dismantling.gif)
 
 ## 使用
 
