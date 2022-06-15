@@ -297,10 +297,6 @@ export default {
       this.setCamera();
     },
     setModelMovePosition(modelNode) {
-      if (this.meshExpand) {
-        this.recovery();
-      }
-
       const isFirstLoad = !this.actvieModelSize.box;
       if (isFirstLoad) {
         this.actvieModelSize.box = new THREE.Box3().setFromObject(modelNode);
