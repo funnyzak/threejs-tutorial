@@ -3,6 +3,7 @@ import Home from '../views/Home.vue';
 import TutorialIndex from '../views/tutorial/index.vue';
 import TutorialHello from '../views/tutorial/Hello.vue';
 import TutoialDismantling from '../views/tutorial/Dismantling.vue';
+import TutoialDismantling2 from '../views/tutorial/Dismantling2.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,13 +19,18 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'hello',
-        name: 'TutorialHello',
+        name: '正方体',
         component: TutorialHello
       },
       {
         path: 'dismantling',
-        name: 'TutorialDismantling',
+        name: '固定模型拆分效果',
         component: TutoialDismantling
+      },
+      {
+        path: 'dismantling2',
+        name: '动态模型拆分效果',
+        component: TutoialDismantling2
       }
     ]
   }
