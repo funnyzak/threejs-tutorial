@@ -11,8 +11,10 @@
 
 ## 预览
 
-- [模型拆分展示/自动爆炸效果](https://funnyzak.github.io/threejs-model-tutorial/#/tutorial/dismantling)
-  ![效果预览](https://raw.githubusercontent.com/funnyzak/threejs-model-tutorial/master/public/assets/imgs/dismantling.gif)
+- [模型自动拆分展示/爆炸效果](https://funnyzak.github.io/threejs-model-tutorial/#/tutorial/dismantling2)
+  ![效果预览](https://raw.githubusercontent.com/funnyzak/threejs-model-tutorial/main/public/assets/imgs/dismantling2.gif)
+- [模型自动拆分展示/爆炸效果](https://funnyzak.github.io/threejs-model-tutorial/#/tutorial/dismantling)
+  ![效果预览](https://raw.githubusercontent.com/funnyzak/threejs-model-tutorial/main/public/assets/imgs/dismantling.gif)
 
 ## 使用
 
