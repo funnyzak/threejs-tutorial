@@ -50,7 +50,7 @@ npm run test:unit
 
 MIT License © 2021 [funnyzak](https://github.com/funnyzak)
 
-[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/threejs-tutorial/Release
+[ci-image]: https://img.shields.io/github/actions/workflow/status/funnyzak/threejs-tutorial/build.yml
 [ci-url]: https://github.com/funnyzak/threejs-tutorial/actions
 [license-image]: https://img.shields.io/github/license/funnyzak/threejs-tutorial.svg?style=flat-square
 [repository-url]: https://github.com/funnyzak/threejs-tutorial
