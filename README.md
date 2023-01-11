@@ -1,4 +1,4 @@
-# ThreeJS-Model-Tutorial
+# ThreeJS Tutorial
 
 [![action][ci-image]][ci-url]
 [![license][license-image]][repository-url]
@@ -11,14 +11,12 @@
 
 ## 预览
 
-- [模型自动拆分展示/爆炸效果](https://funnyzak.github.io/threejs-model-tutorial/#/tutorial/dismantling2)
-  ![效果预览](https://raw.githubusercontent.com/funnyzak/threejs-model-tutorial/dev/public/assets/imgs/dismantling2.gif)
-- [模型自动拆分展示/爆炸效果](https://funnyzak.github.io/threejs-model-tutorial/#/tutorial/dismantling)
-  ![效果预览](https://raw.githubusercontent.com/funnyzak/threejs-model-tutorial/dev/public/assets/imgs/dismantling.gif)
+- [模型自动拆分展示/爆炸效果](https://funnyzak.github.io/threejs-tutorial/#/tutorial/dismantling2)
+  ![效果预览](https://raw.githubusercontent.com/funnyzak/threejs-tutorial/dev/public/assets/imgs/dismantling2.gif)
+- [模型自动拆分展示/爆炸效果](https://funnyzak.github.io/threejs-tutorial/#/tutorial/dismantling)
+  ![效果预览](https://raw.githubusercontent.com/funnyzak/threejs-tutorial/dev/public/assets/imgs/dismantling.gif)
 
 ## 使用
-
-使用的 Node 的构建版本为 **v16.6.2**，为避免冲突，建议使用此版本。可以使用 **_nvm_** 管理 Node 版本。
 
 ```bash
 # 安装依赖
@@ -52,11 +50,11 @@ npm run test:unit
 
 MIT License © 2021 [funnyzak](https://github.com/funnyzak)
 
-[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/threejs-model-tutorial/Release
-[ci-url]: https://github.com/funnyzak/threejs-model-tutorial/actions
-[license-image]: https://img.shields.io/github/license/funnyzak/threejs-model-tutorial.svg?style=flat-square
-[repository-url]: https://github.com/funnyzak/threejs-model-tutorial
-[github-pages-image]: https://img.shields.io/github/pages/funnyzak/threejs-model-tutorial.svg?style=flat-square
-[github-pages-url]: https://funnyzak.github.io/threejs-model-tutorial/
-[commit-activity-image]: https://img.shields.io/github/commit-activity/m/funnyzak/threejs-model-tutorial?style=flat-square
-[last-commit-image]: https://img.shields.io/github/last-commit/funnyzak/threejs-model-tutorial?style=flat-square
+[ci-image]: https://img.shields.io/github/workflow/status/funnyzak/threejs-tutorial/Release
+[ci-url]: https://github.com/funnyzak/threejs-tutorial/actions
+[license-image]: https://img.shields.io/github/license/funnyzak/threejs-tutorial.svg?style=flat-square
+[repository-url]: https://github.com/funnyzak/threejs-tutorial
+[github-pages-image]: https://img.shields.io/github/pages/funnyzak/threejs-tutorial.svg?style=flat-square
+[github-pages-url]: https://funnyzak.github.io/threejs-tutorial/
+[commit-activity-image]: https://img.shields.io/github/commit-activity/m/funnyzak/threejs-tutorial?style=flat-square
+[last-commit-image]: https://img.shields.io/github/last-commit/funnyzak/threejs-tutorial?style=flat-square

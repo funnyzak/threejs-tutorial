@@ -1,11 +1,11 @@
 {
-  "name": "threejs-model-tutorial",
-  "description": "threejs-model-tutorial",
+  "name": "threejs-tutorial",
+  "description": "some threejs tutorial",
   "version": "0.2.0",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/funnyzak/threejs-model-tutorial.git"
+    "url": "git+https://github.com/funnyzak/threejs-tutorial.git"
   },
   "keywords": [
     "vue",
@@ -15,9 +15,9 @@
   "author": "funnyzak <silenceace@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/funnyzak/threejs-model-tutorial/issues"
+    "url": "https://github.com/funnyzak/threejs-tutorial/issues"
   },
-  "homepage": "https://github.com/funnyzak/threejs-model-tutorial#readme",
+  "homepage": "https://github.com/funnyzak/threejs-tutorial#readme",
   "scripts": {
     "serve": "cross-env node ./config/build.js --mode=serve",
     "build": "cross-env node ./config/build.js --mode=build",
