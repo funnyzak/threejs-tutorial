@@ -117,10 +117,11 @@ export default {
         geometry.setFromPoints(this.points);
         const material = new THREE.LineBasicMaterial({ color: 0xffffff });
         const line = new THREE.Line(geometry, material);
+        line.name = 'line';
         scene.add(line);
         this.lines.push(line);
 
-        console.log('current lines', this.lines);
+        console.log('current line info', line);
 
         if (this.points.length >= 3) {
           console.log(this.points);
@@ -141,15 +142,12 @@ export default {
       }
     },
     reset() {
-      setTimeout(() => {
-        console.log('remove line', this.lines.length);
-
-        for (let i = 0; i < this.lines.length; i++) {
-          scene.remove(this.lines[i]);
-        }
-        this.points = [];
-        this.lines = [];
-      }, 1500);
+      this.lines.forEach((line) => {
+        console.log('remove line info', line);
+        scene.remove(line);
+      });
+      this.points = [];
+      this.lines = [];
     },
     // 计算面积的函数
     getArea(points) {
