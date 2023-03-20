@@ -44,17 +44,6 @@ export default {
       renderer: undefined,
       camera: undefined,
 
-      mouse: new THREE.Vector2(),
-      raycaster: undefined,
-      // 存放选择的点
-      points: [],
-      // 存放所有面的顶点
-      vertices: [],
-      // 存放构成的线
-      lines: [],
-      // 存放构成的面
-      plane: undefined,
-
       controls: undefined,
       activeModel: undefined,
       activeModelMaterials: undefined,
@@ -63,7 +52,14 @@ export default {
         boxSize: undefined,
         boxCenter: undefined,
         boxSizeLength: undefined
-      }
+      },
+
+      mouse: new THREE.Vector2(),
+      raycaster: undefined,
+      // 存放选择的点
+      points: [],
+      // 存放构成的线
+      lines: []
     };
   },
   computed: {},
@@ -123,7 +119,9 @@ export default {
         const line = new THREE.Line(geometry, material);
         scene.add(line);
         this.lines.push(line);
+
         console.log('current lines', this.lines);
+
         if (this.points.length >= 3) {
           console.log(this.points);
 
@@ -143,12 +141,15 @@ export default {
       }
     },
     reset() {
-      for (let i = 0; i < this.lines.length; i++) {
-        console.log('remove line', this.lines[i]);
-        scene.remove(this.lines[i]);
-      }
-      this.points = [];
-      this.lines = [];
+      setTimeout(() => {
+        console.log('remove line', this.lines.length);
+
+        for (let i = 0; i < this.lines.length; i++) {
+          scene.remove(this.lines[i]);
+        }
+        this.points = [];
+        this.lines = [];
+      }, 1500);
     },
     // 计算面积的函数
     getArea(points) {
