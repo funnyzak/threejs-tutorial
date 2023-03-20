@@ -34,6 +34,7 @@ const modelInfo = {
 let scene;
 
 export default {
+  name: 'CalcArea',
   data() {
     return {
       showDimension: false,
@@ -87,23 +88,31 @@ export default {
     },
     // 设置平面和射线
     areaPlane() {
-      // 添加平面
-      this.plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
       // 添加射线
       this.raycaster = new THREE.Raycaster();
-
-      // eslint-disable-next-line @typescript-eslint/no-this-alias
-      const _this = this;
       // 添加事件监听
-      window.addEventListener('mousedown', _this.onDocumentMouseDown, false);
+      window.addEventListener('click', (event) => {
+        this.addPoint(event);
+      });
+    },
+    toggleActiveModelOpacity(isOpacity = true) {
+      if (this.activeModel) {
+        this.activeModel.traverse((child) => {
+          if (child.isMesh) {
+            child.material.opacity = isOpacity ? 0.5 : 1;
+            child.material.transparent = isOpacity;
+          }
+        });
+      }
     },
     // 监听用户模型点击
-    onDocumentMouseDown(event) {
+    addPoint(event) {
       event.preventDefault();
+      console.log('addPoint, this is => ', this);
       this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
       this.raycaster.setFromCamera(this.mouse, this.camera);
-      const intersects = this.raycaster.intersectObject(this.activeModel);
+      const intersects = this.raycaster.intersectObject(scene.children[0]);
       if (intersects.length > 0) {
         // eslint-disable-next-line prefer-destructuring
         const { point } = intersects[0];
@@ -114,16 +123,25 @@ export default {
         const line = new THREE.Line(geometry, material);
         scene.add(line);
         this.lines.push(line);
-        if (this.points.length > 2) {
+        console.log('current lines', this.lines);
+        if (this.points.length >= 3) {
           console.log(this.points);
+
+          this.toggleActiveModelOpacity();
+
+          const shape = new THREE.Shape(this.points);
+          const _geometry = new THREE.ShapeGeometry(shape);
+          const _material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+          const mesh = new THREE.Mesh(_geometry, _material);
+          scene.add(mesh);
+
           const area = this.getArea(this.points);
 
-          console.log(`${area.toFixed(2)}平方像素`);
+          console.log(`${area.toFixed(2)}`);
           this.reset();
         }
       }
     },
-
     reset() {
       for (let i = 0; i < this.lines.length; i++) {
         console.log('remove line', this.lines[i]);
