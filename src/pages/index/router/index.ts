@@ -6,6 +6,7 @@ import TutorialDismantling from '../views/tutorial/Dismantling.vue';
 import TutorialDismantling2 from '../views/tutorial/Dismantling2.vue';
 import TutorialDimension from '../views/tutorial/Dimension.vue';
 import TutorialCalcArea from '../views/tutorial/CalcArea.vue';
+import TutorialCalcAngle from '../views/tutorial/CalcAngle.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -43,6 +44,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'calcarea',
         name: '面积测量',
         component: TutorialCalcArea
+      },
+      {
+        path: 'calcangle',
+        name: '角度测量',
+        component: TutorialCalcAngle
       }
     ]
   }

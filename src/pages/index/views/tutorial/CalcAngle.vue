@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="button-container"><input type="checkbox" v-model="showArea" /> 面积测量</div>
+    <div class="button-container"><input type="checkbox" v-model="showAngle" /> 角度测量</div>
     <div class="footer">
       Model by&nbsp;<a
         href="https://sketchfab.com/3d-models/motorcycle-custom-bike-jawa-low-poly-13771fe558604aedae09b5157029e790"
@@ -16,12 +16,14 @@
 </template>
 <script>
 /**
- * Created by leon<silenceace@gmail.com> on 23/03/.
+ * Created by leon<silenceace@gmail.com> on 23/03/24.
  */
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
 const modelInfo = {
   name: 'motorcycle',
@@ -34,10 +36,10 @@ const modelInfo = {
 let scene;
 
 export default {
-  name: 'CalcArea',
+  name: 'CalcAngle',
   data() {
     return {
-      showArea: false,
+      showAngle: false,
 
       container: undefined,
       canvas: undefined,
@@ -124,43 +126,53 @@ export default {
         scene.add(line);
         this.lines.push(line);
 
-        console.log('current line info', line);
-
         if (this.points.length >= 3) {
           console.log(this.points);
 
           this.toggleActiveModelOpacity();
 
-          const shape = new THREE.Shape(this.points);
-          const _geometry = new THREE.ShapeGeometry(shape);
-          const _material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-          const mesh = new THREE.Mesh(_geometry, _material);
-          scene.add(mesh);
+          // display line
+          // const shape = new THREE.Shape(this.points);
+          // const _geometry = new THREE.ShapeGeometry(shape);
+          // const _material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+          // const mesh = new THREE.Mesh(_geometry, _material);
+          // scene.add(mesh);
 
-          const area = this.getArea(this.points);
+          const angle = this.calculateAngle(this.points);
+          console.log('angle => ', angle);
 
-          console.log(`${area.toFixed(2)}`);
-          this.reset();
+          this.displayAngle(angle, this.points);
         }
       }
     },
-    reset() {
-      this.lines.forEach((line) => {
-        console.log('remove line info', line);
-        scene.remove(line);
+    displayAngle(angle, points) {
+      const fontLoader = new FontLoader();
+      fontLoader.load('assets/fonts/Arial_Regular.json', (font) => {
+        const angleText = new TextGeometry(`${angle.toFixed(2)}°`, {
+          font,
+          size: 0.1,
+          height: 0.1,
+          // curveSegments: 1,
+          bevelEnabled: false
+        });
+        const angleMaterial = new THREE.MeshBasicMaterial();
+        const angleLabel = new THREE.Mesh(angleText, angleMaterial);
+        const midPoint = new THREE.Vector3()
+          .add(points[0])
+          .add(points[1])
+          .add(points[2])
+          .divideScalar(3);
+        angleLabel.position.copy(midPoint);
+
+        scene.add(angleLabel);
       });
-      this.points = [];
-      this.lines = [];
     },
-    // 计算面积的函数
-    getArea(points) {
-      const triangle = new THREE.Triangle(points[0], points[1], points[2]);
-      const a = triangle.a.distanceTo(triangle.b);
-      const b = triangle.b.distanceTo(triangle.c);
-      const c = triangle.c.distanceTo(triangle.a);
-      const s = (a + b + c) / 2;
-      const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
-      return area;
+    calculateAngle(points) {
+      const v1 = new THREE.Vector3().subVectors(points[0], points[1]);
+      const v2 = new THREE.Vector3().subVectors(points[2], points[1]);
+
+      const angle = v1.angleTo(v2);
+      return angle * (180 / Math.PI);
     },
 
     // 初始化画布
